@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Molecule 3D</title>
+</head>
+<body>
+<script type="text/javascript" src="JSmol.min.js"></script>
+<script type="text/javascript">
+Jmol._isAsync = false;
+var jmolApplet0; 
+jmol_isReady = function(applet) {
+    Jmol._getElement(applet, "appletdiv").style.border="1px solid black"
+}		
+var Info = {
+	width: "600",
+	height: "300",
+	debug: false,
+	color: "0xFFFFFF",
+	addSelectionOptions: true,
+	use: "WEBGL",   // JAVA HTML5 WEBGL are all options
+	j2sPath: "./j2s", 
+	script: "set antialiasDisplay;load data/caffeine.mol; background grey; stereo ON; set stereoDegrees 5;",
+	readyFunction: jmol_isReady,
+	disableJ2SLoadMonitor: true,
+  disableInitialConsole: true,
+  allowJavaScript: true
+}
+
+$(document).ready(function() {
+    Info.width = document.body.scrollWidth;
+    Info.height = document.body.scrollHeight;
+    $("#appdiv").html(Jmol.getAppletHtml("jmolApplet0", Info))
+})
+var lastPrompt=0;
+
+window.addEventListener('orientationchange', function() {
+    var width = document.body.scrollWidth;
+    $("#appdiv").children().first().width(width);
+    $("#appdiv").children().first().height(width / 2);
+    console.log("rotate");
+});
+
+</script>
+<div id="appdiv"></div>
+</body>
+</html>
